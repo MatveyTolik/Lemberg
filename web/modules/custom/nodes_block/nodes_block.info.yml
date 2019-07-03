@@ -1,0 +1,4 @@
+name: Nodes Block
+description: "Custom block with nodes"
+type: module
+core: 8.x

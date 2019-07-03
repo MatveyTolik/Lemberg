@@ -1,0 +1,4 @@
+name: Entity name retriever
+description: "Entity name retriever service"
+type: module
+core: 8.x
