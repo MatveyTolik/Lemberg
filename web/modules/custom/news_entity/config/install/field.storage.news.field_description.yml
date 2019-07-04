@@ -1,0 +1,21 @@
+uuid: 6ab7aeb3-8bdf-4319-9916-ffa23783f79b
+langcode: en
+status: true
+dependencies:
+  module:
+    - news_entity
+    - text
+_core:
+  default_config_hash: 0W4OzST3V9mZ5AyjtQkn8pelZ8VTivMXjtEy5HWsJmg
+id: news.field_description
+field_name: field_description
+entity_type: news
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

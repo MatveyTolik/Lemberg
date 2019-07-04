@@ -1,0 +1,5 @@
+entity.news.add_form:
+  route_name: entity.news.add_form
+  title: 'Add News'
+  appears_on:
+    - entity.news.collection

@@ -1,0 +1,19 @@
+add news entities:
+  title: 'Create new News entities'
+
+administer news entities:
+  title: 'Administer News entities'
+  description: 'Allow to access the administration form to configure News entities.'
+  restrict access: true
+
+delete news entities:
+  title: 'Delete News entities'
+
+edit news entities:
+  title: 'Edit News entities'
+
+view published news entities:
+  title: 'View published News entities'
+
+view unpublished news entities:
+  title: 'View unpublished News entities'

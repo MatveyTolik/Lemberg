@@ -1,0 +1,21 @@
+uuid: 4e1206b4-37cf-4c74-8512-ce2484ead4d4
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - news_entity
+_core:
+  default_config_hash: ObeAlU7JADO6qUwXUKUKlu6rWVGacy5YuW3H-bpYKYw
+id: news.field_link
+field_name: field_link
+entity_type: news
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
