@@ -9,12 +9,14 @@ dependencies:
     - field.field.node.article.field_cta
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
+    - field.field.node.article.field_taxonomy_reference
     - image.style.large
     - node.type.article
   module:
     - comment
     - image
     - text
+    - two_view_modes
     - user
 _core:
   default_config_hash: ChmU3AVqDKU32A_fyChG0W9dTRKmVBR58B6OClCLvZI
@@ -32,7 +34,7 @@ content:
     label: hidden
   comment:
     type: comment_default
-    weight: 4
+    weight: 5
     region: content
     label: above
     settings:
@@ -56,8 +58,17 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  links:
+  field_taxonomy_reference:
     weight: 3
+    label: hidden
+    settings:
+      first_view_mode: mobile
+      second_view_mode: full
+    third_party_settings: {  }
+    type: two_view_modes
+    region: content
+  links:
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -1,0 +1,10 @@
+uuid: 91557284-c470-4864-8790-b68af0199b0d
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.mobile
+label: 'Taxonomy mobile'
+targetEntityType: taxonomy_term
+cache: true

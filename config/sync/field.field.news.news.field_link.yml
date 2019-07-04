@@ -1,0 +1,25 @@
+uuid: 380d8de4-85f3-4f65-b7e8-c41842f5bd65
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.news.field_link
+  module:
+    - link
+    - news_entity
+_core:
+  default_config_hash: sr_qxzbkPsptwXTJDFs-3KZAAh5nKXd_-MeCcmQuXqM
+id: news.news.field_link
+field_name: field_link
+entity_type: news
+bundle: news
+label: Link
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

@@ -1,0 +1,22 @@
+uuid: f79f37c9-f21a-46e8-8a65-25cbd46a90cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.mobile
+    - taxonomy.vocabulary.tags
+  module:
+    - text
+id: taxonomy_term.tags.mobile
+targetEntityType: taxonomy_term
+bundle: tags
+mode: mobile
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

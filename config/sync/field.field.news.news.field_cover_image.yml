@@ -1,0 +1,40 @@
+uuid: 98bebbd7-653e-44ad-8491-ce4058538290
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.news.field_cover_image
+  module:
+    - image
+    - news_entity
+_core:
+  default_config_hash: mlDVlDTpwX8wpGNuvt0gyw_3VEd5X9tIqnLO_mjYCwg
+id: news.news.field_cover_image
+field_name: field_cover_image
+entity_type: news
+bundle: news
+label: 'Cover Image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

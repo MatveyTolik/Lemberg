@@ -1,0 +1,23 @@
+uuid: 1c2bb98a-c540-475c-ba40-88bce464aba9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.news.field_description
+  module:
+    - news_entity
+    - text
+_core:
+  default_config_hash: KRe1phjFX90sCjeV7ADf1ekmpzPQg-5d59TJt_P74Qg
+id: news.news.field_description
+field_name: field_description
+entity_type: news
+bundle: news
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

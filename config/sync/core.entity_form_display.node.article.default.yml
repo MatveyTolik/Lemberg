@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.article.field_cta
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
+    - field.field.node.article.field_taxonomy_reference
     - image.style.thumbnail
     - node.type.article
   module:
@@ -73,6 +74,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_taxonomy_reference:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   path:
     type: path
     weight: 10

@@ -19,7 +19,7 @@ settings:
   label_display: visible
   hello_block_name: null
   nodes_block:
-    number: '1'
+    number: '5'
     type:
       article: article
       page: page

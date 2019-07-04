@@ -28,6 +28,7 @@ module:
   image: 0
   link: 0
   menu_ui: 0
+  news_entity: 0
   node: 0
   nodes_block: 0
   options: 0
@@ -42,6 +43,7 @@ module:
   text: 0
   toolbar: 0
   tour: 0
+  two_view_modes: 0
   user: 0
   views_ui: 0
   menu_link_content: 1
