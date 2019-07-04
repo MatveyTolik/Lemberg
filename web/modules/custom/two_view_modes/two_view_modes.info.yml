@@ -1,4 +1,4 @@
-name: Different view modes for entity reference
+name: Different view modes
 description: "Provide the ability to select two different view modes for list items"
 type: module
 core: 8.x

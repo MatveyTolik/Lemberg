@@ -2,4 +2,4 @@ services:
 
   entity_name.retriever:
     class: Drupal\entity_name_retriever\EntityNameRetriever
-    arguments: ['@entity_type.manager']
+    arguments: ['@entity_type.manager', '@path.current']

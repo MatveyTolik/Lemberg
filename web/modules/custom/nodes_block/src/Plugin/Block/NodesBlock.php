@@ -7,7 +7,6 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\entity_name_retriever\EntityNameRetriever;
 
 /**
  * Provides a 'Nodes' Block.
@@ -39,7 +38,7 @@ class NodesBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   Entity type manager.
    */
-  public function __construct($configuration,
+  public function __construct(array $configuration,
     $plugin_id,
     $plugin_definition,
     EntityTypeManager $entity_type_manager) {
@@ -97,12 +96,14 @@ class NodesBlock extends BlockBase implements ContainerFactoryPluginInterface {
       $viewBuilder[] = $this->entityTypeManager->getViewBuilder($entity_type)->viewMultiple($nodes, 'teaser');
     }
 
-    return array(
-      $viewBuilder,
-      '#cache' => [
-        'tags' => ['node_list'],
+    $result = $viewBuilder;
+    $result['#cache'] = [
+      'max-age' => 0,
+      'tags' => [
+        'node_list'
       ],
-    );
+    ];
+    return $result;
   }
 
   /**
