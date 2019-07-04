@@ -1,0 +1,31 @@
+uuid: 50238863-a38a-487f-8ce3-caac83ddc72a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cta
+    - node.type.article
+    - paragraphs.paragraphs_type.call_to_action
+  module:
+    - entity_reference_revisions
+id: node.article.field_cta
+field_name: field_cta
+entity_type: node
+bundle: article
+label: CTA
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      call_to_action: call_to_action
+    target_bundles_drag_drop:
+      call_to_action:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions

@@ -1,0 +1,31 @@
+uuid: bb67c049-abf9-42e0-a3cd-16f331ee71d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.cta
+  module:
+    - system
+    - views
+  theme:
+    - custom_theme
+id: views_block__cta_block_1
+theme: custom_theme
+region: cta
+weight: 0
+provider: null
+plugin: 'views_block:cta-block_1'
+settings:
+  id: 'views_block:cta-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: '/node/*'
+    negate: false
+    context_mapping: {  }

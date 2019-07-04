@@ -1,0 +1,26 @@
+uuid: f326b510-f7ae-4ff7-b8be-8012076c74b7
+langcode: en
+status: true
+dependencies:
+  module:
+    - nodes_block
+  theme:
+    - bartik
+id: nodesblock
+theme: bartik
+region: sidebar_first
+weight: -5
+provider: null
+plugin: nodes_block
+settings:
+  id: nodes_block
+  label: 'Nodes block'
+  provider: nodes_block
+  label_display: visible
+  hello_block_name: null
+  nodes_block:
+    number: '1'
+    type:
+      article: article
+      page: page
+visibility: {  }
