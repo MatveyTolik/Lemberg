@@ -27,7 +27,7 @@ use Drupal\user\UserInterface;
  *     "form" = {
  *       "default" = "Drupal\news_entity\Form\NewsForm",
  *       "add" = "Drupal\news_entity\Form\NewsForm",
- *       "edit" = "Drupal\news_entity\Form\NewsForm",
+ *       "edit" = "Drupal\news_entity\Form\NewsEditForm",
  *       "delete" = "Drupal\news_entity\Form\NewsDeleteForm",
  *     },
  *     "route_provider" = {
@@ -41,7 +41,6 @@ use Drupal\user\UserInterface;
  *   admin_permission = "administer news entities",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "name",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
@@ -140,52 +139,6 @@ class News extends ContentEntityBase implements NewsInterface {
 
     // Add the published field.
     $fields += static::publishedBaseFieldDefinitions($entity_type);
-
-    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the News entity.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('target_type', 'user')
-      ->setSetting('handler', 'default')
-      ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'author',
-        'weight' => 0,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
-        'settings' => [
-          'match_operator' => 'CONTAINS',
-          'size' => '60',
-          'autocomplete_type' => 'tags',
-          'placeholder' => '',
-        ],
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Name'))
-      ->setDescription(t('The name of the News entity.'))
-      ->setSettings([
-        'max_length' => 50,
-        'text_processing' => 0,
-      ])
-      ->setDefaultValue('')
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => -4,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -4,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(TRUE);
 
     $fields['status']->setDescription(t('A boolean indicating whether the News is published.'))
       ->setDisplayOptions('form', [

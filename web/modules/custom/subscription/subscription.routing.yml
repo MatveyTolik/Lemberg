@@ -1,0 +1,7 @@
+subscription.form:
+  path: '/subscription'
+  defaults:
+    _form: 'Drupal\subscription\Form\SubscriptionForm'
+    _title: 'Simple custom form example'
+  requirements:
+    _permission: 'access content'

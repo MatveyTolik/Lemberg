@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,6 +17,27 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ingroup news_entity
  */
 class NewsForm extends ContentEntityForm {
+
+  /**
+   * The current form step.
+   *
+   * @var int
+   */
+  protected $step = 1;
+
+  /**
+   * The tempstore factory.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
+   */
+  protected $tempStoreFactory;
+
+  /**
+   * Private temporary storage.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
+   */
+  protected $store;
 
   /**
    * The current user account.
@@ -35,23 +57,26 @@ class NewsForm extends ContentEntityForm {
    *   The time service.
    * @param \Drupal\Core\Session\AccountProxyInterface $account
    *   The current user account.
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
+   *   The tempstore factory.
    */
-  public function __construct(EntityRepositoryInterface $entity_repository, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL, AccountProxyInterface $account) {
+  public function __construct(EntityRepositoryInterface $entity_repository, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL, AccountProxyInterface $account, PrivateTempStoreFactory $temp_store_factory) {
     parent::__construct($entity_repository, $entity_type_bundle_info, $time);
-
+    $this->tempStoreFactory = $temp_store_factory;
     $this->account = $account;
+    $this->store = $this->tempStoreFactory->get('multistep_data');
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    // Instantiates this form class.
     return new static(
       $container->get('entity.repository'),
       $container->get('entity_type.bundle.info'),
       $container->get('datetime.time'),
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('user.private_tempstore')
     );
   }
 
@@ -59,10 +84,34 @@ class NewsForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var \Drupal\news_entity\Entity\News $entity */
     $form = parent::buildForm($form, $form_state);
 
-    $entity = $this->entity;
+    if ($this->step == 1) {
+      $form['actions']['submit'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Next step'),
+        '#submit' => ['::submitNextStep'],
+      ];
+
+      $form['field_news_category']['#type'] = 'hidden';
+      $form['field_tags']['#type'] = 'hidden';
+    }
+
+    if ($this->step == 2) {
+      $form['actions']['submit']['previous_step'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Previous step'),
+        '#submit' => ['::submitPreviousStep'],
+      ];
+
+      $form['field_cover_image']['#type'] = 'hidden';
+      $form['field_description']['#type'] = 'hidden';
+      $form['field_link']['#type'] = 'hidden';
+
+      $this->entity->set('field_cover_image', $this->store->get('field_cover_image'));
+      $this->entity->set('field_description', $this->store->get('field_description'));
+      $this->entity->set('field_link', $this->store->get('field_link'));
+    }
 
     return $form;
   }
@@ -88,6 +137,26 @@ class NewsForm extends ContentEntityForm {
         ]));
     }
     $form_state->setRedirect('entity.news.canonical', ['news' => $entity->id()]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitNextStep(array &$form, FormStateInterface $form_state) {
+    $this->store->set('field_cover_image', $form_state->getValue('field_cover_image'));
+    $this->store->set('field_description', $form_state->getValue('field_description')[0]['value']);
+    $this->store->set('field_link', $form_state->getValue('field_link')[0]);
+
+    $form_state->setRebuild();
+    $this->step++;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitPreviousStep(array &$form, FormStateInterface $form_state) {
+    $form_state->setRebuild();
+    $this->step--;
   }
 
 }

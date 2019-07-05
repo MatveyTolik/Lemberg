@@ -1,0 +1,14 @@
+news_entity.multistep_one:
+  path: '/news_entity/multistep-one'
+  defaults:
+    _form: '\Drupal\news_entity\Form\NewsForm'
+    _title: 'First form'
+  requirements:
+    _permission: 'access content'
+news_entity.multistep_two:
+  path: '/news_entity/multistep-two'
+  defaults:
+    _form: '\Drupal\demo\Form\MultistepTwoForm'
+    _title: 'Second form'
+  requirements:
+    _permission: 'access content'

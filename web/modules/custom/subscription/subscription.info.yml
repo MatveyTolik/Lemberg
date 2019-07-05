@@ -1,0 +1,4 @@
+name: Subscription
+description: "Implement Event Subscriber,"
+type: module
+core: 8.x
