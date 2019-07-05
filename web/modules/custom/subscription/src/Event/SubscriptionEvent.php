@@ -5,6 +5,7 @@ namespace Drupal\subscription\Event;
 use Symfony\Component\EventDispatcher\Event;
 
 class SubscriptionEvent extends Event {
+  const SUBSCRIPTION = 'user.subscription';
 
   protected $message;
 

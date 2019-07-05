@@ -51,10 +51,6 @@ class SubscriptionForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['phone_number'] = [
-      '#type' => 'tel',
-      '#title' => $this->t('Your phone number'),
-    ];
     $form['actions'] = [
       '#type' => 'actions',
     ];
@@ -64,7 +60,6 @@ class SubscriptionForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Subscription'),
     ];
-
 
     return $form;
   }
@@ -76,7 +71,7 @@ class SubscriptionForm extends FormBase {
     $this->messenger()->addStatus($this->t('Your phone number is @number', ['@number' => $form_state->getValue('phone_number')]));
 
     $event = new SubscriptionEvent('This is a message from OtherModuleEvent');
-    $this->eventDispatcher->dispatch(Subscription::SUBSCRIPTION, $event);
+    $this->eventDispatcher->dispatch(SubscriptionEvent::SUBSCRIPTION, $event);
   }
 
 }

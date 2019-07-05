@@ -1,5 +1,5 @@
 services:
   subscription:
     class: '\Drupal\subscription\EventSubscriber\UserEventsSubscriber'
-#    tags:
-#      - { name: 'user.subscription' }
+    tags:
+      - { name: 'event_subscriber' }

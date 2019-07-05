@@ -4,12 +4,12 @@ namespace Drupal\subscription\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\Event;
-use Drupal\subscription\Event\Subscription;
+use Drupal\subscription\Event\SubscriptionEvent;
 
 /**
- * Class EmailStaticsEventSubscriber
+ * Class UserEventsSubscriber
  *
- * @package Drupal\emeevents\EmailStaticsEventSubscriber
+ * @package Drupal\subscription\EmailStaticsEventSubscriber
  */
 class UserEventsSubscriber implements EventSubscriberInterface {
 
@@ -18,7 +18,7 @@ class UserEventsSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      Subscription::SUBSCRIPTION => 'userSubscription'
+      SubscriptionEvent::SUBSCRIPTION => 'userSubscription'
     ];
   }
 

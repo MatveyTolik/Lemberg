@@ -104,13 +104,13 @@ class NewsForm extends ContentEntityForm {
         '#submit' => ['::submitPreviousStep'],
       ];
 
-      $form['field_cover_image']['#type'] = 'hidden';
-      $form['field_description']['#type'] = 'hidden';
-      $form['field_link']['#type'] = 'hidden';
+//      $form['field_cover_image']['#type'] = 'hidden';
+//      $form['field_description']['#type'] = 'hidden';
+      hide($form['field_cover_image']);
+      hide($form['field_description']);
+      hide($form['field_link']);
 
-      $this->entity->set('field_cover_image', $this->store->get('field_cover_image'));
-      $this->entity->set('field_description', $this->store->get('field_description'));
-      $this->entity->set('field_link', $this->store->get('field_link'));
+
     }
 
     return $form;
@@ -121,8 +121,20 @@ class NewsForm extends ContentEntityForm {
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
+    $file = $this->store->get('field_cover_image');
+    if (!empty($file[0]["fids"])) {
+      $this->entity->set('field_cover_image', [
+        'target_id' => $file[0]["fids"][0],
+        'alt' => $file[0]["alt"],
+      ]);
+    }
+
+    $this->entity->set('field_description', ['value' => $this->store->get('field_description')[0]['value'], 'format' => $this->store->get('field_description')[0]['format']]);
+    $this->entity->set('field_link', $this->store->get('field_link')[0]);
 
     $status = parent::save($form, $form_state);
+    $this->deleteStore();
+
 
     switch ($status) {
       case SAVED_NEW:
@@ -144,11 +156,22 @@ class NewsForm extends ContentEntityForm {
    */
   public function submitNextStep(array &$form, FormStateInterface $form_state) {
     $this->store->set('field_cover_image', $form_state->getValue('field_cover_image'));
-    $this->store->set('field_description', $form_state->getValue('field_description')[0]['value']);
-    $this->store->set('field_link', $form_state->getValue('field_link')[0]);
+    $this->store->set('field_description', $form_state->getValue('field_description'));
+    $this->store->set('field_link', $form_state->getValue('field_link'));
 
     $form_state->setRebuild();
     $this->step++;
+  }
+
+  /**
+   * Helper method that removes all the keys from the store collection used for
+   * the multistep form.
+   */
+  protected function deleteStore() {
+    $keys = ['field_cover_image', 'field_description', 'field_link'];
+    foreach ($keys as $key) {
+      $this->store->delete($key);
+    }
   }
 
   /**
