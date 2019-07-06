@@ -1,7 +1,0 @@
-field.formatter.settings.two_view_modes:
-  type: mapping
-  label: 'FORMATTER NAME text length'
-  mapping:
-    text_length:
-      type: string
-      label: 'Text Length'

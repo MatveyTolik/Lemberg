@@ -9,15 +9,15 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a 'Nodes' Block.
+ * Provides a 'DisplayNodes' Block.
  *
  * @Block(
- *   id = "nodes_block",
- *   admin_label = @Translation("Nodes block"),
- *   category = @Translation("Nodes Block"),
+ *   id = "display_nodes",
+ *   admin_label = @Translation("Display Nodes"),
+ *   category = @Translation("Display Nodes"),
  * )
  */
-class NodesBlock extends BlockBase implements ContainerFactoryPluginInterface {
+class DisplayNodes extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * Drupal\Core\Entity\EntityTypeManager definition.
@@ -68,37 +68,21 @@ class NodesBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $entity_type = 'node';
     $config = $this->getConfiguration();
 
-    if (isset($config['nodes_block']['type'])) {
-      $type_ids = $config['nodes_block']['type'];
-      foreach ($type_ids as $type_id) {
-        if (!empty($type_id)) {
-          $types[] = $this->entityTypeManager->getStorage('node_type')->load($type_id);
-        }
-      }
-    }
-    else {
-      $types = $this->entityTypeManager->getStorage('node_type')->loadMultiple();
-    }
+    $query = $this->entityTypeManager->getStorage('node')->getQuery();
+    $query->condition('type', $config['content_type'], 'IN');
+    $query->condition('status', '1');
+    $query->sort('type');
+    $query->sort('created', 'DESC');
+    $query->range(0, $config['limit']);
+    $nids = $query->execute();
 
-    foreach ($types as $type) {
-      $content_type = $type->id();
+    $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
 
-      $query = $this->entityTypeManager->getStorage('node')->getQuery();
-      $query->condition('type', $content_type);
-      $query->condition('status', '1');
-      if (!empty($config['nodes_block']['number'])) {
-        $query->range(0, $config['nodes_block']['number']);
-      }
-      $nids = $query->execute();
-
-      $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-
-      $viewBuilder[] = $this->entityTypeManager->getViewBuilder($entity_type)->viewMultiple($nodes, 'teaser');
-    }
+    // Display nodes.
+    $viewBuilder[] = $this->entityTypeManager->getViewBuilder($entity_type)->viewMultiple($nodes, 'teaser');
 
     $result = $viewBuilder;
     $result['#cache'] = [
-      'max-age' => 0,
       'tags' => [
         'node_list'
       ],
@@ -112,26 +96,22 @@ class NodesBlock extends BlockBase implements ContainerFactoryPluginInterface {
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
 
-    $options = [];
     $config = $this->getConfiguration();
-    $types = $this->entityTypeManager->getStorage('node_type')->loadMultiple();
+    $options = $this->getContentTypeList();
 
-    foreach ($types as $type) {
-      $options[$type->id()] = $type->label();
-    }
-
-    $form['nodes_block']['number'] = [
+    $form['limit'] = [
       '#type' => 'number',
+      '#min' => 1,
       '#title' => $this->t('Number of nodes'),
       '#description' => $this->t('Number nodes for display'),
-      '#default_value' => isset($config['nodes_block']['number']) ? $config['nodes_block']['number'] : 10,
+      '#default_value' => isset($config['limit']) ? $config['limit'] : 10,
     ];
 
-    $form['nodes_block']['type'] = [
+    $form['content_type'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Node types'),
       '#description' => $this->t('Select node type(s) for display in block'),
-      '#default_value' => isset($config['nodes_block']['type']) ? $config['nodes_block']['type'] : '',
+      '#default_value' => isset($config['content_type']) ? $config['content_type'] : '',
       '#options' => $options,
     ];
 
@@ -143,9 +123,30 @@ class NodesBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
     parent::blockSubmit($form, $form_state);
-    $values = $form_state->getValues();
-    $this->configuration['nodes_block']['number'] = $values['nodes_block']['number'];
-    $this->configuration['nodes_block']['type'] = $values['nodes_block']['type'];
+    $this->configuration['limit'] = $form_state->getValue('limit');
+    $content_types = array_filter($form_state->getValue('content_type'));
+    $content_types = !empty($content_types) ? $content_types : $this->getContentTypeList();
+    $this->configuration['content_type'] = array_keys($content_types);
+  }
+
+  /**
+   * Return content types.
+   *
+   * @return array
+   *   Content types.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function getContentTypeList() {
+    $options = [];
+    $types = $this->entityTypeManager->getStorage('node_type')->loadMultiple();
+
+    foreach ($types as $type) {
+      $options[$type->id()] = $type->label();
+    }
+
+    return $options;
   }
 
 }

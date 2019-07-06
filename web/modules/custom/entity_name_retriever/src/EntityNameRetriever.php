@@ -38,7 +38,7 @@ class EntityNameRetriever {
   }
 
   /**
-   * {@inheritdoc}
+   * Return user name from user page.
    */
   public function getUserFromRoute() {
     $result = 'There is no such user';
@@ -57,7 +57,7 @@ class EntityNameRetriever {
   }
 
   /**
-   * {@inheritdoc}
+   * Return node title from node page.
    */
   public function getNodeFromRoute() {
     $result = 'There is no such node';

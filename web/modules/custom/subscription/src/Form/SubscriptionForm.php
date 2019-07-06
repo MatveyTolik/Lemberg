@@ -4,7 +4,6 @@ namespace Drupal\subscription\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\subscription\Event\Subscription;
 use Drupal\subscription\Event\SubscriptionEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,7 +21,7 @@ class SubscriptionForm extends FormBase {
   protected $eventDispatcher;
 
   /**
-   * EmeEventsForm constructor.
+   * SubscriptionForm constructor.
    *
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher.
@@ -55,7 +54,6 @@ class SubscriptionForm extends FormBase {
       '#type' => 'actions',
     ];
 
-    // Add a submit button that handles the submission of the form.
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Subscription'),
@@ -68,9 +66,7 @@ class SubscriptionForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->messenger()->addStatus($this->t('Your phone number is @number', ['@number' => $form_state->getValue('phone_number')]));
-
-    $event = new SubscriptionEvent('This is a message from OtherModuleEvent');
+    $event = new SubscriptionEvent();
     $this->eventDispatcher->dispatch(SubscriptionEvent::SUBSCRIPTION, $event);
   }
 

@@ -103,21 +103,23 @@ class TwoViewModes extends FormatterBase implements ContainerFactoryPluginInterf
     $entityType = 'taxonomy_term';
     $viewModes = $this->entityDisplayRepository->getViewModes($entityType);
 
-    foreach ($viewModes as $id => $viewMode) {
-      $options[$id] = $viewMode['label'];
+    if (!empty($viewModes)) {
+      foreach ($viewModes as $id => $viewMode) {
+        $options[$id] = $viewMode['label'];
+      }
     }
 
     $element['first_view_mode'] = [
       '#title' => $this->t('First view mode'),
       '#type' => 'select',
-      '#options' => $options,
+      '#options' => !empty($options) ? $options : [],
       '#default_value' => $this->getSetting('first_view_mode'),
     ];
 
     $element['second_view_mode'] = [
       '#title' => $this->t('Second view mode'),
       '#type' => 'select',
-      '#options' => $options,
+      '#options' => !empty($options) ? $options : [],
       '#default_value' => $this->getSetting('second_view_mode'),
     ];
 
@@ -139,8 +141,11 @@ class TwoViewModes extends FormatterBase implements ContainerFactoryPluginInterf
     }
 
     if (!empty($terms)) {
+      // Display first taxonomy term.
       $viewBuilder[] = $this->entityTypeManager->getViewBuilder($entityType)->view(array_shift($terms), $firstViewMode);
+
       if (!empty($terms)) {
+        // Display other taxonomy terms.
         $viewBuilder[] = $this->entityTypeManager->getViewBuilder($entityType)->viewMultiple($terms, $secondViewMode);
       }
     }
