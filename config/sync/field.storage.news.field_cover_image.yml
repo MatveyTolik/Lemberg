@@ -7,7 +7,7 @@ dependencies:
     - image
     - news_entity
 _core:
-  default_config_hash: NjyvS-LbS5_R02mPls5r4DdXJ43b4GYhH8hSPjfR-_k
+  default_config_hash: jY7_FPTvE67tTKDNCqREEX9CVz4ZVrzzRJQenS_-XkA
 id: news.field_cover_image
 field_name: field_cover_image
 entity_type: news

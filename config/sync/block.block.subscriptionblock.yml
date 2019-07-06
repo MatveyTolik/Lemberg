@@ -1,0 +1,26 @@
+uuid: 3a2150b0-1644-443a-bf43-003867a96481
+langcode: en
+status: true
+dependencies:
+  module:
+    - subscription
+    - system
+  theme:
+    - custom_theme
+id: subscriptionblock
+theme: custom_theme
+region: cta
+weight: 0
+provider: null
+plugin: subscription_block
+settings:
+  id: subscription_block
+  label: 'Subscription Block'
+  provider: subscription
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '/node/*'
+    negate: false
+    context_mapping: {  }

@@ -15,7 +15,7 @@ dependencies:
     - news_entity
     - text
 _core:
-  default_config_hash: osTtAUAk6BXmHDRNfkQ7y8kwUDwk2VwfeNzP1lQqEcw
+  default_config_hash: MBynM8_T3hTAaDRqUQhxMnXOd_Dhp63QOj7k7PfYTWg
 id: news.news.default
 targetEntityType: news
 bundle: news
@@ -68,13 +68,4 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  name:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-hidden:
-  user_id: true
+hidden: {  }

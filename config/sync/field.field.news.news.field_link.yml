@@ -8,7 +8,7 @@ dependencies:
     - link
     - news_entity
 _core:
-  default_config_hash: sr_qxzbkPsptwXTJDFs-3KZAAh5nKXd_-MeCcmQuXqM
+  default_config_hash: OQeSLo5ZCLP7uUepN-cDzg93pP5CYGMBxmKhM8ndUQo
 id: news.news.field_link
 field_name: field_link
 entity_type: news

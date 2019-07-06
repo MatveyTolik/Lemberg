@@ -6,7 +6,7 @@ dependencies:
     - news_entity
     - text
 _core:
-  default_config_hash: 0W4OzST3V9mZ5AyjtQkn8pelZ8VTivMXjtEy5HWsJmg
+  default_config_hash: qDCk3_-OVuA07OvmLnChekAMJyLFIUYpAKvg_K1LvMs
 id: news.field_description
 field_name: field_description
 entity_type: news

@@ -6,7 +6,7 @@ dependencies:
     - news_entity
     - taxonomy
 _core:
-  default_config_hash: h2-yeY7i7gd4kmjCvXhdQObOjmb9VOxTMvhHkPffrVQ
+  default_config_hash: Y2ytsKDj3rBcmli3YjX6Kw-x7z8qzPqHhnWrYvnSBXI
 id: news.field_news_category
 field_name: field_news_category
 entity_type: news

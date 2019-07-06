@@ -1,0 +1,9 @@
+uuid: 7939c6be-47f2-4e21-b4aa-6463a082e7fb
+langcode: en
+status: true
+dependencies: {  }
+id: subscriber
+label: Subscriber
+weight: 3
+is_admin: null
+permissions: {  }

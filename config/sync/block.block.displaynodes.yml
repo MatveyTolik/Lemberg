@@ -1,4 +1,4 @@
-uuid: b00c38ff-036c-4ea7-8d2a-7fd7fc8646f4
+uuid: f91c5242-0065-455a-963c-e446a5cadf31
 langcode: en
 status: true
 dependencies:
@@ -6,21 +6,24 @@ dependencies:
     - nodes_block
   theme:
     - custom_theme
-id: custom_theme_nodesblock
+id: displaynodes
 theme: custom_theme
 region: sidebar_first
-weight: -5
+weight: 0
 provider: null
-plugin: nodes_block
+plugin: display_nodes
 settings:
-  id: nodes_block
-  label: 'Nodes block'
+  id: display_nodes
+  label: 'Display Nodes'
   provider: nodes_block
   label_display: visible
-  hello_block_name: null
   nodes_block:
-    number: '5'
+    number: '10'
     type:
       article: article
       page: page
+  limit: '10'
+  content_type:
+    - article
+    - page
 visibility: {  }

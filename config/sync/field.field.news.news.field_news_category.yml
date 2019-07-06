@@ -8,7 +8,7 @@ dependencies:
   module:
     - news_entity
 _core:
-  default_config_hash: ctl0xwjI3vu2Le2wy9-s_5LF21jl7y_aPfUtnNs2-S4
+  default_config_hash: SFpf-6GniECBhU927dJR1r6lJa0X-xCknarf_tzoXAM
 id: news.news.field_news_category
 field_name: field_news_category
 entity_type: news

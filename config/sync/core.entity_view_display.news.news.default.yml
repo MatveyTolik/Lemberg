@@ -13,9 +13,8 @@ dependencies:
     - link
     - news_entity
     - text
-    - user
 _core:
-  default_config_hash: X8xHbF5CsfmBzjHG93LDPO2wnjXvskzilNOZjAP4I5o
+  default_config_hash: Gb9U2GS3g0_ZyYkVI52HRY88rNESh0qXXNicGaWFMRs
 id: news.news.default
 targetEntityType: news
 bundle: news
@@ -72,19 +71,4 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  name:
-    label: above
-    type: string
-    weight: -4
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-  user_id:
-    label: hidden
-    type: author
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden: {  }
